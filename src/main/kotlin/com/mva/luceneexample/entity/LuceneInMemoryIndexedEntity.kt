@@ -41,18 +41,20 @@ class LuceneInMemoryIndexedEntity(
         writer.addDocument(document)
     }
 
-    fun buildSearcher(customAnalyzer: Analyzer = analyzer): Searcher {
-        writer.close()
-        return Searcher(ramDirectory, customAnalyzer)
+    fun search(queryString: String, showDebugInfo: Boolean = false): List<Document> {
+        return Searcher().search(queryString, showDebugInfo)
     }
 
-    class Searcher(ramDirectory: Directory, analyzer: Analyzer) {
+    private inner class Searcher {
         private val indexReader = DirectoryReader.open(ramDirectory)
         private val searcher = IndexSearcher(indexReader)
         private val queryParser = QueryParser(SYNONYM_FIELD, analyzer)
 
+        init {
+            writer.close()
+        }
 
-        fun search(queryString: String, showDebugInfo: Boolean = false): List<Document> {
+        fun search(queryString: String, showDebugInfo: Boolean): List<Document> {
             val query = queryParser.parse(queryString)
             val topDocs = searcher.search(query, 20)
             return topDocs.scoreDocs.map { foundDocument ->

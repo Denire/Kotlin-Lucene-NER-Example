@@ -11,12 +11,9 @@ Create named entity with alternative names and values
         
 Index entity in Lucene
 
-    val lucene = LuceneInMemoryIndexedEntity(entity)
+    val entity = LuceneInMemoryIndexedEntity(entity)
     
-Create searcher. It's possible to use different analyzer for your language
-
-    val searcher = lucene.buildSearcher()
     
 Search with or without debug prints
     
-    searcher.search("нижневартовск", showDebugInfo = true)
+    entity.search("нижневартовск", showDebugInfo = true)
