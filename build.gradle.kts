@@ -16,6 +16,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     compile(lucene("lucene-core"))
     compile(lucene("lucene-queryparser"))
+    compile(lucene("lucene-analyzers-common"))
     compile("org.apache.commons:commons-csv:1.5")
 }
 

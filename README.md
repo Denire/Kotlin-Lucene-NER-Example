@@ -13,7 +13,7 @@ Index entity in Lucene
 
     val lucene = LuceneInMemoryIndexedEntity(entity)
     
-Create searcher. It's possible to use different analyzer
+Create searcher. It's possible to use different analyzer for your language
 
     val searcher = lucene.buildSearcher()
     
