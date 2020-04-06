@@ -31,6 +31,8 @@ class LuceneInMemoryIndexedEntity(
                 indexDocument(record.id.toString(), synonym, record.value)
             }
         }
+
+        writer.close()
     }
 
     private fun indexDocument(id: String, synonym: String, value: String) {
@@ -49,10 +51,6 @@ class LuceneInMemoryIndexedEntity(
         private val indexReader = DirectoryReader.open(ramDirectory)
         private val searcher = IndexSearcher(indexReader)
         private val queryParser = QueryParser(SYNONYM_FIELD, analyzer)
-
-        init {
-            writer.close()
-        }
 
         fun search(queryString: String, showDebugInfo: Boolean): List<Document> {
             val query = queryParser.parse(queryString)
